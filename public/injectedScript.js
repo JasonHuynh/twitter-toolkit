@@ -15,7 +15,7 @@ for(var z = 0; z < els.length; z++) {
         var userhandle = decodeURI(this.getAttribute("data-original-content"));
         console.log('Donating to username: ', userhandle);
         //Send message to open prompt with QR code
-        chrome.runtime.sendMessage({message: 'requestInvoice', user: userhandle}, 
+        chrome.runtime.sendMessage({message: 'buttonClicked', user: userhandle}, 
         function() { 
              /* callback */ 
                 console.log('Confirmation received.');

@@ -21,6 +21,9 @@
       "persistent": false
     },
     "permissions": [
-      "http://twitter.com/","https://twitter.com/","tabs","activeTab","storage"
+      "http://twitter.com/","https://twitter.com/","tabs","activeTab","storage",
+      "https://tippin.me/*",
+      "https://api.tippin.me/*"
       ]
+     
 }
