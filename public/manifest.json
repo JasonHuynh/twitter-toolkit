@@ -1,15 +1,26 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
-  "icons": [
-    {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
-    }
-  ],
-  "start_url": ".",
-  "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+    "name": "Tippin.me",
+    "version": "0.1",
+    "description": "Inserts a tippin button into every tweet!",
+    "manifest_version": 2,
+    "icons": { "64": "icon.png" },
+    "browser_action": {
+        "default_popup": "index.html"
+    },
+    "content_security_policy": "script-src 'self' 'sha256-GgRxrVOKNdB4LrRsVPDSbzvfdV4UqglmviH9GoBJ5jk='; object-src 'self'",
+    "content_scripts": [
+      {
+        "matches": ["http://www.twitter.com/*",
+                     "https://twitter.com/*"],
+        "js": ["jquery.js", "contentScript.js"],
+        "run_at": "document_end"
+      }
+    ],
+    "background": {
+      "scripts": ["background.js"],
+      "persistent": false
+    },
+    "permissions": [
+      "http://twitter.com/","https://twitter.com/","tabs","activeTab","storage"
+      ]
 }
