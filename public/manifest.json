@@ -1,6 +1,6 @@
 {
     "name": "Tippin.me",
-    "version": "0.1",
+    "version": "0.1.1",
     "description": "Inserts a tippin button into every tweet!",
     "manifest_version": 2,
     "icons": { "64": "icon.png" },
@@ -10,8 +10,7 @@
     "content_security_policy": "script-src 'self' 'sha256-GgRxrVOKNdB4LrRsVPDSbzvfdV4UqglmviH9GoBJ5jk='; object-src 'self'",
     "content_scripts": [
       {
-        "matches": ["http://www.twitter.com/*",
-                     "https://twitter.com/*"],
+        "matches": ["https://twitter.com/*"],
         "js": ["jquery.js", "contentScript.js"],
         "run_at": "document_end"
       }
@@ -21,7 +20,7 @@
       "persistent": false
     },
     "permissions": [
-      "http://twitter.com/","https://twitter.com/","tabs","activeTab","storage",
+      "http://twitter.com/","https://twitter.com/","tabs","storage",
       "https://tippin.me/*",
       "https://api.tippin.me/*"
       ]
