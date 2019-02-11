@@ -1,5 +1,7 @@
 $(document).ready(function() {
     //console.log('Executing contentScript.js...');
+   
+    /// BUTTON INJECTION
     // Add button to every tweet being shown
     function modifyTimeline(){
         $('.tweet').each(function(index){
@@ -51,10 +53,11 @@ $(document).ready(function() {
     //First call on Start
     modifyTimeline();
 
-    /// WEBLN INTEGRATION
-    // Wait for requests to open WEBLN
 
+    /// LISTENER
+    // Listen for soft reloads and webln invoices messages
     chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+        // Wait for requests to open WEBLN
         if(request.message == 'weblnpayinvoice')
         {
             //Request invoice to Tippin's api
@@ -64,7 +67,7 @@ $(document).ready(function() {
                 url: 'https://api.tippin.me/v1/invoice/'+request.user,
                 type: 'POST',
                 headers: {
-                    "authorization": "basic xxx"
+                    "authorization": "basic x"
                 },
                 data: {
                 },
@@ -85,10 +88,30 @@ $(document).ready(function() {
                 }
             });
             
+        }else if(request.message == 'softreload')
+        {
+            console.log('SOFT RELOAD');
+            //Stop and reset observer
+            observer.disconnect();
+            target = $('.stream-items').get(0);
+            observer = new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
+                    //Log
+                    //console.log('Mutation took place!');
+                    //Call method to Inject button
+                    modifyTimeline();
+                });
+            });
+            observer.observe(target, config);
+            //First try
+            modifyTimeline();
         }
     });
 
-    //Send message to Background to enable webln status
+
+    /// WEBLN INTEGRATION
+
+    //Send message to Background to disable webln status by default
     chrome.runtime.sendMessage({message: "weblnstatusvar", value: false}, 
     function(response) {
     });

@@ -57,7 +57,12 @@ chrome.runtime.onMessage.addListener(
     chrome.tabs.onUpdated.addListener(function(tabId,changeInfo,tab){
       if (tab.url.indexOf("https://twitter.com/") > -1 && changeInfo.url !== undefined){
           console.log('Executing contentScript...');
-          chrome.tabs.executeScript(tabId, {file: "contentScript.js"} );
+          //Execute content script (problem: duplicated injections)
+          //chrome.tabs.executeScript(tabId, {file: "contentScript.js"} );
+          //Send message to Soft-reload contentScript.
+          chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
+            chrome.tabs.sendMessage(tabs[0].id, {message: 'softreload'}, function(response) {});  
+          });
       }else{
           console.log('Page changed but not matched req.'+changeInfo.url);
       }
