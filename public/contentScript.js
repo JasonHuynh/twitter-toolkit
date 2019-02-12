@@ -67,7 +67,7 @@ $(document).ready(function() {
                 url: 'https://api.tippin.me/v1/invoice/'+request.user,
                 type: 'POST',
                 headers: {
-                    "authorization": "basic x"
+                    "authorization": "basic YjZiNjBjYWU0MDlkZTY3OWNjN2IxMDA3NjMzODdkZmE6MDI2ZTdhNWQ5ZDI1MTkzYzNkYWRmNzExOWIzYzliZGQK"
                 },
                 data: {
                 },
@@ -84,6 +84,7 @@ $(document).ready(function() {
                 },
                 error: function(xhr, textStatus, errorThrown) {
                     console.log('[Error Requesting Invoice id2]'+errorThrown);
+                    console.log('[Error Requesting Invoice id2 code]'+xhr);
                     showAlert(errorThrown);
                 }
             });
