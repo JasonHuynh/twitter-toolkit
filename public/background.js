@@ -52,9 +52,25 @@ chrome.runtime.onMessage.addListener(
       
     });
 
-
-    //Inject and execute content script every time you change url (no need to reload, that's why changeInfo is not undefined)
+    
+    //Execute content script every time you change url (no need to reload, that's why changeInfo is not undefined)
     chrome.tabs.onUpdated.addListener(function(tabId,changeInfo,tab){
+      if(changeInfo.url !== undefined)
+        {
+          //If the changeinfo contains Twitter, then do a soft reload of contentscript
+          if(changeInfo.url.includes('twitter'))
+          {
+            console.log('Doing a soft reload of tippin\'s content script...'+changeInfo.url);
+            chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
+              chrome.tabs.sendMessage(tabs[0].id, {message: 'softreload'}, function(response) {});  
+            });
+          }
+        }else{
+          //Undefined. Don't do anything.
+        }
+      
+      /*
+      //This needed tab permissions
       if (tab.url.indexOf("https://twitter.com/") > -1 && changeInfo.url !== undefined){
           console.log('Executing contentScript...');
           //Execute content script (problem: duplicated injections)
@@ -66,4 +82,6 @@ chrome.runtime.onMessage.addListener(
       }else{
           console.log('Page changed but not matched req.'+changeInfo.url);
       }
+      */
     });
+  

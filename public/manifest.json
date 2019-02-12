@@ -1,6 +1,6 @@
 {
     "name": "Tippin.me",
-    "version": "0.1.2",
+    "version": "0.1.3",
     "description": "Inserts a tippin button into every tweet!",
     "manifest_version": 2,
     "applications": {
@@ -30,7 +30,7 @@
       "persistent": false
     },
     "permissions": [
-      "http://twitter.com/","https://twitter.com/","tabs","storage",
+      "https://twitter.com/","storage",
       "https://tippin.me/*",
       "https://api.tippin.me/*"
       ]

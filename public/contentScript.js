@@ -112,12 +112,10 @@ $(document).ready(function() {
 
     /// WEBLN INTEGRATION
 
-    //Send message to Background to disable webln status by default
-    chrome.runtime.sendMessage({message: "weblnstatusvar", value: false}, 
-    function(response) {
-    });
+    // Send message to Background to disable webln status by default
+    chrome.runtime.sendMessage({message: "weblnstatusvar", value: false});
 
-    // Prepare and enable WebLN if it exists
+    // Helper to show alert
     function showAlert(message)
     {
         var injectedCode = "alert('"+message+"')";
@@ -126,6 +124,8 @@ $(document).ready(function() {
         script.appendChild(document.createTextNode(injectedCode));
         (document.body || document.head || document.documentElement).appendChild(script);
     }
+
+    // Prepare and enable WebLN if it exists
     function webln_preEnable()
     {
         var injectedCode = "if(typeof webln !== 'undefined'){\nwebln.enable();\n}";
@@ -193,3 +193,5 @@ $(document).ready(function() {
     },500);
 
 });
+
+
