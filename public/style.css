@@ -1,0 +1,17 @@
+.tippin-button
+{
+    background-color: #FF9B97;
+    width: 18px;
+    height:18px;
+    font-size:9px;
+    border-radius:9px;
+}
+
+.tippin-button:hover
+{
+    cursor: pointer;
+    background-color: white;
+    border-width: 1.5px;
+    border-style: solid;
+    border-color: #FF9B97;
+}

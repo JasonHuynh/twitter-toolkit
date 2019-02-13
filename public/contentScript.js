@@ -16,11 +16,19 @@ $(document).ready(function() {
                     //Add flag
                     $containerButtons.addClass("tippin-button-added");
                     //add button
+                    /*
                     $containerButtons.append(`
                     <div class="ProfileTweet-action ProfileTweet-action--favorite TippinButton">
                         <button class="tippin-button EdgeButton EdgeButton--primary" data-original-content="${encodeURI(username)}" style="background-color: #FF9B97;padding: 0px;width: 60px;font-size:11px;">
                         ⚡️tippin
                         </button>
+                    </div>`);
+                    */
+
+                    //rounded button
+                    $containerButtons.append(`
+                    <div class="ProfileTweet-action ProfileTweet-action--favorite TippinButton">
+                        <button class="tippin-button" data-original-content="${encodeURI(username)}">&nbsp;</button>
                     </div>`);
                 }
             }
