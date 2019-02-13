@@ -1,3 +1,4 @@
+//Document ready
 $(document).ready(function() {
     //console.log('Executing contentScript.js...');
    
@@ -16,6 +17,12 @@ $(document).ready(function() {
                     //Add flag
                     $containerButtons.addClass("tippin-button-added");
                     //add button
+                    //rounded button
+                    $containerButtons.append(`
+                    <div class="ProfileTweet-action ProfileTweet-action--tip TippinButton">
+                        <button class="tippin-button" data-original-content="${encodeURI(username)}">&nbsp;</button>
+                    </div>`);
+                    //Old option
                     /*
                     $containerButtons.append(`
                     <div class="ProfileTweet-action ProfileTweet-action--favorite TippinButton">
@@ -24,12 +31,6 @@ $(document).ready(function() {
                         </button>
                     </div>`);
                     */
-
-                    //rounded button
-                    $containerButtons.append(`
-                    <div class="ProfileTweet-action ProfileTweet-action--favorite TippinButton">
-                        <button class="tippin-button" data-original-content="${encodeURI(username)}">&nbsp;</button>
-                    </div>`);
                 }
             }
         });
@@ -201,5 +202,3 @@ $(document).ready(function() {
     },500);
 
 });
-
-

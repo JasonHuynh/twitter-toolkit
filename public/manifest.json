@@ -1,7 +1,7 @@
 {
     "name": "Tippin.me",
-    "version": "0.1.5",
-    "description": "Inserts a tippin button into every tweet!",
+    "version": "0.1.7",
+    "description": "Send Lightning Network tips to Twitter users!",
     "manifest_version": 2,
     "icons": { 
       "16": "icon-16.png",
@@ -14,7 +14,7 @@
           "16": "icon-16.png",
           "32": "icon-32.png",
           "64": "icon.png",
-          "128": "icon128.png"
+          "128": "icon-128.png"
         }    
     },
     "content_security_policy": "script-src 'self' 'sha256-GgRxrVOKNdB4LrRsVPDSbzvfdV4UqglmviH9GoBJ5jk='; object-src 'self'",
@@ -34,6 +34,8 @@
       "https://twitter.com/*",
       "https://api.tippin.me/*",
       "storage"
-      ]
-     
+      ],
+    "web_accessible_resources": [
+      "images/*.png"
+    ]
 }

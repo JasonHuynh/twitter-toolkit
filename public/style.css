@@ -1,6 +1,9 @@
 .tippin-button
 {
-    background-color: #FF9B97;
+    /*background-color: #FF9B97;*/
+    background: url('chrome-extension://__MSG_@@extension_id__/images/button-lightning.png');
+    background-repeat: no-repeat;
+    background-size: 18px 18px;
     width: 18px;
     height:18px;
     font-size:9px;
@@ -10,8 +13,27 @@
 .tippin-button:hover
 {
     cursor: pointer;
-    background-color: white;
-    border-width: 1.5px;
-    border-style: solid;
-    border-color: #FF9B97;
+    background: url('chrome-extension://__MSG_@@extension_id__/images/button-lightning-hover.png');
+    background-repeat: no-repeat;
+    background-size: 18px 18px;
+}
+
+.tippin-button-none
+{
+    /*background-color: #FF9B97;*/
+    background: url('chrome-extension://__MSG_@@extension_id__/images/button-cross.png');
+    background-repeat: no-repeat;
+    background-size: 18px 18px;
+    width: 18px;
+    height:18px;
+    font-size:9px;
+    border-radius:9px;
+}
+
+.tippin-button-none:hover
+{
+    cursor: pointer;
+    background: url('chrome-extension://__MSG_@@extension_id__/images/button-cross-hover.png');
+    background-repeat: no-repeat;
+    background-size: 18px 18px;
 }
