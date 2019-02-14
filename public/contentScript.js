@@ -7,8 +7,8 @@ $(document).ready(function() {
     function modifyTimeline(){
         $('.tweet').each(function(index){
             //var tweetText = $(this).find('.tweet-text').html();
-            var username = $(this).attr('data-screen-name')
-
+            var username = $(this).attr('data-screen-name');
+            var tweetid = $(this).attr('data-tweet-id');
             if(typeof username !== 'undefined' && typeof username !== 'undefined'){
                 //Flag Tweet
                 //console.log('Tweet by: '+ username+' \n');
@@ -20,7 +20,7 @@ $(document).ready(function() {
                     //rounded button
                     $containerButtons.append(`
                     <div class="ProfileTweet-action ProfileTweet-action--tip TippinButton">
-                        <button class="tippin-button" data-original-content="${encodeURI(username)}">&nbsp;</button>
+                        <button class="tippin-button" data-username="${encodeURI(username)}" data-tweet="${encodeURI(tweetid)}">&nbsp;</button>
                     </div>`);
                     //Old option
                     /*
@@ -70,7 +70,7 @@ $(document).ready(function() {
         if(request.message == 'weblnpayinvoice')
         {
             //Request invoice to Tippin's api
-            console.log('Requesting invoice...');
+            console.log('Requesting invoice for tweet '+request.tweet+'...');
             $.ajax({
                 url: 'https://api.tippin.me/v1/invoice/'+request.user,
                 type: 'POST',
@@ -85,6 +85,7 @@ $(document).ready(function() {
                     {
                         console.log('[Error Requesting Invoice] '+data.message);
                         showAlert(data.message);
+                        //Send GET REQUEST TO https://twitter.com/i/tweet/html?id=XXXXXXXXX&modal=reply  USING TWEET ID request.tweet
                     }else{
                         console.log('[Invoice Received] '+data.lnreq);
                         webln_payInvoice(data.lnreq);
@@ -93,6 +94,7 @@ $(document).ready(function() {
                 error: function(xhr, textStatus, errorThrown) {
                     console.log('[Error Requesting Invoice id2]'+errorThrown);
                     console.log('[Error Requesting Invoice id2 code]'+xhr);
+                    //Send GET REQUEST TO https://twitter.com/i/tweet/html?id=XXXXXXXXX&modal=reply  USING TWEET ID request.tweet
                     showAlert(errorThrown);
                 }
             });
