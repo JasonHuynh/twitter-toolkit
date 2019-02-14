@@ -71,7 +71,6 @@ $(document).ready(function() {
         {
             //Request invoice to Tippin's api
             console.log('Requesting invoice...');
-
             $.ajax({
                 url: 'https://api.tippin.me/v1/invoice/'+request.user,
                 type: 'POST',

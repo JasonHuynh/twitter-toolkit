@@ -41,9 +41,12 @@ chrome.runtime.onMessage.addListener(
           //Webln Not present. Open window.
           var w = 420;
           var h = 590;
-          var left = (screen.width/2)-(w/2);
-          var top = (screen.height/2)-(h/2); 
-          chrome.windows.create({url: `https://tippin.me/buttons/send-lite.php?u=${userhandle}&eh=yes`, type: "popup", width: w, height: h,'left': left, 'top': top});
+          var leftpx = 200;
+          var toppx = 100;
+          leftpx = (screen.width/2)-(w/2);
+          toppx = (screen.height/2)-(h/2); 
+          console.log('Open window:'+screen.width+' '+screen.height+' '+leftpx+' '+toppx);
+          chrome.windows.create({url: `https://tippin.me/buttons/send-lite.php?u=${userhandle}&eh=yes`, type: "popup", width: w, height: h, left: leftpx, top: toppx});
           
           //Send callback?
           //sendResponse({message: "ok"});//optional
