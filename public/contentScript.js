@@ -78,6 +78,7 @@ $(document).ready(function() {
                     "authorization": "basic YjZiNjBjYWU0MDlkZTY3OWNjN2IxMDA3NjMzODdkZmE6MDI2ZTdhNWQ5ZDI1MTkzYzNkYWRmNzExOWIzYzliZGQK"
                 },
                 data: {
+                    tweet: request.tweet
                 },
                 dataType : 'json',
                 success: function(data, textStatus, xhr) {
