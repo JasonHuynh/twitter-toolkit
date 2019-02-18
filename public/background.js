@@ -88,3 +88,66 @@ chrome.runtime.onMessage.addListener(
       */
     });
   
+
+//Load User List 
+chrome.storage.local.get(['tdata','lastFetchTdata'], function(data) {
+  console.log('Chrome Local Data loaded');
+  var mustFetch = false;
+  if(data.tdata === null || data.tdata === undefined)
+  {
+    console.log('TData is null, we need to fetch');
+     mustFetch = true;
+  }else{
+    console.log('TData:'+data.tdata);
+  }
+
+  var lastFetchTS = data.lastFetchTdata;
+  if (lastFetchTS === null || lastFetchTS === undefined) {
+    console.log('Last fetch is null, we need to fetch');
+    lastFetchTS = 0;
+    mustFetch = true;
+  }else{
+    console.log('Last fetch: '+lastFetchTS);
+  }
+
+  const nowTS = Math.floor(Date.now() / 1000);
+  if((nowTS - lastFetchTS) > 120)
+  {
+    console.log('Fetching...');
+    mustFetch = true;
+  }else{
+    console.log('Aborting, you fetched '+(nowTS - lastFetchTS)+' second ago (wait until 120)');
+  }
+
+  if(mustFetch === true)
+  {
+    fetch('https://api.tippin.me/v1/tdata', { 
+      method: 'post', 
+      headers: new Headers({
+        'authorization': 'basic YjZiNjBjYWU0MDlkZTY3OWNjN2IxMDA3NjMzODdkZmE6MDI2ZTdhNWQ5ZDI1MTkzYzNkYWRmNzExOWIzYzliZGQK'
+      }), 
+      body: 't=0&u=0'
+    })
+    .then(res => res.json())
+    .then(json => {
+      //log
+      console.log('Response received.');
+      console.log(json);
+      if(json.success){
+        //Save TS and Tdata
+        const timeStamp = Math.floor(Date.now() / 1000);
+        chrome.storage.local.set({tdata: json.data, lastFetchTdata : timeStamp}, function() {
+          console.log('Value of local storage set');
+        });
+        //localStorage.setItem('tdata',[json.data]);
+        //localStorage.setItem('lastFetchTdata',);
+      }else{
+        console.log('Error on response.');
+        chrome.storage.local.set({tdata: json.data, lastFetchTdata : 0}, function() {
+          console.log('Value of local storage set');
+        });
+      }
+    
+    });
+  }
+});

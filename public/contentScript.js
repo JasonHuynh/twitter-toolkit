@@ -1,27 +1,78 @@
+
 //Document ready
 $(document).ready(function() {
     //console.log('Executing contentScript.js...');
-   
+
+    //Load tdata array and assign when ready
+    var tdata_array = [];
+    var tdata_loaded = false;
+    chrome.storage.local.get(['tdata'], function(data) {
+        console.log('Storage local loaded!');
+        //No matter the data, it has been loaded. Flag.
+        tdata_loaded = true;
+        //Check
+        if(data.tdata !== null)
+        {
+            console.log('Tdata is'+data.tdata);
+            tdata_array = data.tdata;
+        }else{
+            console.log('Tdata array is empty, set as empty array!');
+            tdata_array = [];
+        }
+
+        //We want to reload now that we got it
+        modifyTimeline(); // All your code is contained here, or executes later that this
+    });
+
     /// BUTTON INJECTION
     // Add button to every tweet being shown
     function modifyTimeline(){
+
+        if(tdata_loaded !== true)
+        {
+            console.log('tdata not loaded yet, wait');
+            return;
+        }
+
+        console.log('x tdata is:'+tdata_array);
+        //Evaluate tweets
         $('.tweet').each(function(index){
             //var tweetText = $(this).find('.tweet-text').html();
             var username = $(this).attr('data-screen-name');
+            var useridtwitter = $(this).attr('data-user-id');
             var tweetid = $(this).attr('data-tweet-id');
             if(typeof username !== 'undefined' && typeof username !== 'undefined'){
+                
                 //Flag Tweet
                 //console.log('Tweet by: '+ username+' \n');
                 var $containerButtons = $(this).find('.js-actions');
                 if(!$containerButtons.hasClass("tippin-button-added")){
-                    //Add flag
+                    //Add flag 
                     $containerButtons.addClass("tippin-button-added");
-                    //add button
+
+                    //Add custom class to reply button , so we can trigger it afterwards
+                    $containerButtons.find('.js-actionReply').addClass("tippin-reply-button-"+username+"-"+tweetid);
+
+                    //Add Tippin button depending on tdata
+                    var classButton = 'tippin-button tippin-button-yes';
+                    if(tdata_array !== null && tdata_array.length>0)
+                    {
+                        console.log('tdata lenght'+tdata_array.length);
+                        if(tdata_array.includes(useridtwitter))
+                        {
+                            classButton = 'tippin-button tippin-button-yes';
+                        }else{
+                            classButton = 'tippin-button tippin-button-none';
+                        }
+                    }
+
                     //rounded button
                     $containerButtons.append(`
                     <div class="ProfileTweet-action ProfileTweet-action--tip TippinButton">
-                        <button class="tippin-button" data-username="${encodeURI(username)}" data-tweet="${encodeURI(tweetid)}">&nbsp;</button>
+                        <button class="${classButton}" data-username="${encodeURI(username)}" data-user-id-twitter="${useridtwitter}" data-tweet="${encodeURI(tweetid)}">&nbsp;</button>
                     </div>`);
+
+
                     //Old option
                     /*
                     $containerButtons.append(`
@@ -62,6 +113,38 @@ $(document).ready(function() {
     //First call on Start
     modifyTimeline();
 
+    /// TWEET RESPONSE TO NON-EXISTANT USERS
+    function tweetInvitation(username,tweetid)
+    {
+        console.log('!Asking to join... User: '+username);
+        //Trigger reply
+        //document.getElementsByClassName('tippin-reply-button-'+username+"-"+tweetid)[0].click();
+        //Type message
+        //document.getElementById('tweet-box-global').innerHTML = '<div>@Hey! Test</div>';
+        var injectedCode = `
+        function getConfirmation() {
+            var retVal = confirm("This user does not have a Tippin account. Ask him to join?");
+            if( retVal == true ) {
+               //User wants to tweet
+               return true;
+            } else {
+               //User does not want to tweet
+               return false;
+            }
+        }
+        if(getConfirmation()){
+            document.getElementsByClassName('tippin-reply-button-${username}-${tweetid}')[0].click();
+            document.getElementById('tweet-box-global').innerHTML = "<div>I was about to tip you, but you don't have a Tippin.me account yet :) #LightningNetwork #TippinTwitter</div>";
+        }
+        `;
+        //var injectedCode = "document.getElementsByClassName('tippin-reply-button-"+username+"-"+tweetid+"')[0].click()";
+        //injectedCode += "document.getElementById('tweet-box-global').innerHTML = '<div>I was about to tip you, but you don't have a Tippin.me account yet :)</div>';";
+        var script = document.createElement('script');
+        script.id = 'reply-join';
+        script.appendChild(document.createTextNode(injectedCode));
+        (document.body || document.head || document.documentElement).appendChild(script);
+    }
+
 
     /// LISTENER
     // Listen for soft reloads and webln invoices messages
@@ -85,8 +168,14 @@ $(document).ready(function() {
                     if(data.error)
                     {
                         console.log('[Error Requesting Invoice] '+data.message);
+                        if(data.code === 6){
+                            tweetInvitation(request.user, request.tweet);
+                            console.log('This user doesnt exist');
+                            return;
+                        }
+                       
                         showAlert(data.message);
-                        //Send GET REQUEST TO https://twitter.com/i/tweet/html?id=XXXXXXXXX&modal=reply  USING TWEET ID request.tweet
+
                     }else{
                         console.log('[Invoice Received] '+data.lnreq);
                         webln_payInvoice(data.lnreq);

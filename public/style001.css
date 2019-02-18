@@ -1,4 +1,4 @@
-.tippin-button
+.tippin-button-yes
 {
     /*background-color: #FF9B97;*/
     background: url('chrome-extension://__MSG_@@extension_id__/images/button-lightning.png');
@@ -10,7 +10,7 @@
     border-radius:9px;
 }
 
-.tippin-button:hover
+.tippin-button-yes:hover
 {
     cursor: pointer;
     background: url('chrome-extension://__MSG_@@extension_id__/images/button-lightning-hover.png');
@@ -21,7 +21,7 @@
 .tippin-button-none
 {
     /*background-color: #FF9B97;*/
-    background: url('chrome-extension://__MSG_@@extension_id__/images/button-cross.png');
+    background: url('chrome-extension://__MSG_@@extension_id__/images/button-none.png');
     background-repeat: no-repeat;
     background-size: 18px 18px;
     width: 18px;
@@ -33,7 +33,7 @@
 .tippin-button-none:hover
 {
     cursor: pointer;
-    background: url('chrome-extension://__MSG_@@extension_id__/images/button-cross-hover.png');
+    background: url('chrome-extension://__MSG_@@extension_id__/images/button-none-hover.png');
     background-repeat: no-repeat;
     background-size: 18px 18px;
 }

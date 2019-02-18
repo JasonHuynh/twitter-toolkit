@@ -1,6 +1,6 @@
 {
     "name": "Tippin.me",
-    "version": "0.1.9",
+    "version": "0.2.0",
     "description": "Send Lightning Network tips to Twitter users!",
     "manifest_version": 2,
     "icons": { 
@@ -22,7 +22,7 @@
       {
         "matches": ["https://twitter.com/*"],
         "js": ["jquery.js", "contentScript.js"],
-        "css": ["style.css"],
+        "css": ["style001.css"],
         "run_at": "document_end"
       }
     ],
