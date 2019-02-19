@@ -88,7 +88,13 @@ $(document).ready(function() {
 
         //Notify to Background to run the listeners script
         chrome.runtime.sendMessage({message: "listeners"});
+
+       
+            
     }
+
+    //From time to time, reload list of Twitter users from Tippin. At least once every time a page is reload.
+    chrome.runtime.sendMessage({message: "reloadtdata"});
 
     // Listen for changes with MutationObserver
     // Select the target node (tweet modal)
