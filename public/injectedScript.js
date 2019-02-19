@@ -11,12 +11,13 @@ for(var z = 0; z < els.length; z++) {
   els[z].addEventListener('click', function(){
     //Get username for that button
     var userhandle = decodeURI(this.getAttribute("data-username"));
+    var usertwitid = this.getAttribute("data-user-id-twitter");
     var tweetid = decodeURI(this.getAttribute("data-tweet"));
     //Log
     console.log('Donating to username: ', userhandle);
 
     //Send message to open prompt with QR code
-    chrome.runtime.sendMessage({message: 'buttonClicked', user: userhandle, tweet: tweetid});
+    chrome.runtime.sendMessage({message: 'buttonClicked', user: userhandle, tweet: tweetid, usertwitterid: usertwitid});
   });
 
     /*

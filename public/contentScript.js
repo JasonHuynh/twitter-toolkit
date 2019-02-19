@@ -13,7 +13,7 @@ $(document).ready(function() {
         //Check
         if(data.tdata !== null)
         {
-            console.log('Tdata is'+data.tdata);
+            //console.log('Tdata is'+data.tdata);
             tdata_array = data.tdata;
         }else{
             console.log('Tdata array is empty, set as empty array!');
@@ -197,7 +197,7 @@ $(document).ready(function() {
             
         }else if(request.message == 'softreload')
         {
-            console.log('SOFT RELOAD');
+            console.log('Doing soft reload...');
             //Stop and reset observer
             observer.disconnect();
             target = $('.stream-items').get(0);
@@ -212,6 +212,11 @@ $(document).ready(function() {
             observer.observe(target, config);
             //First try
             modifyTimeline();
+        }else if(request.message == 'asktojoin')
+        { 
+            //The user doesn't exist on tippin, ask to join
+            console.log('Asking to join...');
+            tweetInvitation(request.user, request.tweet);
         }
     });
 

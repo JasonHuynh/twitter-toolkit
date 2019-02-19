@@ -26,9 +26,34 @@ chrome.runtime.onMessage.addListener(
         //Get username
         var userhandle = request.user;
         var tweetid = request.tweet;
+        var usertwitterid = request.usertwitterid;
         //Log
-        console.log('[buttonClicked] Message received, for username and tweet: '+userhandle+' - '+tweetid );
+        console.log('[buttonClicked] Message received, for username and tweet: '+userhandle+' - '+tweetid+'-'+usertwitterid);
 
+
+
+        //1. First, if tdata is loaded, check if this user has Tippin and save a query to the api. Also allows to show a reply message on non-joule users
+        if(tdata_loaded === true)
+        {
+          if(tdata_array !== null && tdata_array.length>0)
+          {
+              console.log('Finding out if user exists on Tippin...'+tdata_array.length);
+              if(tdata_array.includes(usertwitterid))
+              {
+                  //Keep on
+                  console.log('User exists on Tippin.');
+              }else{
+                  //User doesn't exist, don't continue , and show alert
+                  console.log('User does not exist on Tippin.');
+                  chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
+                    chrome.tabs.sendMessage(tabs[0].id, {message: 'asktojoin', user: userhandle, tweet: tweetid}, function(response) {});  
+                  });
+                  return;
+              }
+          }
+        }
+
+        //2. Now check which one of modal presentation show
         //Check if WebLN is present
         if( localStorage.getItem('weblnEnabled') == 'true')
         {
@@ -94,7 +119,9 @@ chrome.runtime.onMessage.addListener(
     });
   
 
-//Load User List 
+//Load User List
+var tdata_array = [];
+var tdata_loaded = false;
 function loadDataTwitterUsers(){
   chrome.storage.local.get(['tdata','lastFetchTdata'], function(data) {
     console.log('Chrome Local Data loaded');
@@ -104,7 +131,12 @@ function loadDataTwitterUsers(){
       console.log('TData is null, we need to fetch');
       mustFetch = true;
     }else{
-      console.log('TData:'+data.tdata);
+      console.log('Local version of Tdata loaded.');
+      //console.log('TData:'+data.tdata);
+
+      //tdata not null, load it!
+      tdata_array = data.tdata;
+      tdata_loaded = true;
     }
 
     var lastFetchTS = data.lastFetchTdata;
@@ -145,6 +177,11 @@ function loadDataTwitterUsers(){
           chrome.storage.local.set({tdata: json.data, lastFetchTdata : timeStamp}, function() {
             console.log('Value of local storage set');
           });
+
+          //Flag as loaded
+          tdata_array = json.data;
+          tdata_loaded = true;
+
           //localStorage.setItem('tdata',[json.data]);
           //localStorage.setItem('lastFetchTdata',);
         }else{

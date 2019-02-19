@@ -21,7 +21,8 @@
 .tippin-button-none
 {
     /*background-color: #FF9B97;*/
-    background: url('chrome-extension://__MSG_@@extension_id__/images/button-none.png');
+    /*background: url('chrome-extension://__MSG_@@extension_id__/images/button-none.png');*/
+    background: url('chrome-extension://__MSG_@@extension_id__/images/button-lightning.png');
     background-repeat: no-repeat;
     background-size: 18px 18px;
     width: 18px;
@@ -33,7 +34,8 @@
 .tippin-button-none:hover
 {
     cursor: pointer;
-    background: url('chrome-extension://__MSG_@@extension_id__/images/button-none-hover.png');
+    /*ackground: url('chrome-extension://__MSG_@@extension_id__/images/button-none-hover.png');*/
+    background: url('chrome-extension://__MSG_@@extension_id__/images/button-lightning-hover.png');
     background-repeat: no-repeat;
     background-size: 18px 18px;
 }
