@@ -20,6 +20,7 @@ chrome.runtime.onMessage.addListener(
       }else if(request.message == 'reloadtdata')
       {
         //Reload tdata (Twitter users)
+        console.log('Reloading tdata...');
         loadDataTwitterUsers();
       }else if(request.message == 'buttonClicked')
       {
@@ -149,12 +150,12 @@ function loadDataTwitterUsers(){
     }
 
     const nowTS = Math.floor(Date.now() / 1000);
-    if((nowTS - lastFetchTS) > 120)
+    if((nowTS - lastFetchTS) > 300)
     {
       console.log('Fetching...');
       mustFetch = true;
     }else{
-      console.log('Aborting, you fetched '+(nowTS - lastFetchTS)+' second ago (wait until 120)');
+      console.log('Aborting, you fetched '+(nowTS - lastFetchTS)+' second ago (wait until 300)');
     }
 
     if(mustFetch === true)
@@ -189,6 +190,7 @@ function loadDataTwitterUsers(){
           chrome.storage.local.set({tdata: json.data, lastFetchTdata : 0}, function() {
             console.log('Value of local storage set');
           });
+          
         }
       
       });

@@ -18,6 +18,9 @@ for(var z = 0; z < els.length; z++) {
 
     //Send message to open prompt with QR code
     chrome.runtime.sendMessage({message: 'buttonClicked', user: userhandle, tweet: tweetid, usertwitterid: usertwitid});
+
+    //Send message to load tdata as well
+    chrome.runtime.sendMessage({message: "reloadtdata"});
   });
 
     /*

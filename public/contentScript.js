@@ -34,7 +34,7 @@ $(document).ready(function() {
             return;
         }
 
-        console.log('x tdata is:'+tdata_array);
+        //console.log('x tdata is:'+tdata_array);
         //Evaluate tweets
         $('.tweet').each(function(index){
             //var tweetText = $(this).find('.tweet-text').html();
@@ -57,7 +57,7 @@ $(document).ready(function() {
                     var classButton = 'tippin-button tippin-button-yes';
                     if(tdata_array !== null && tdata_array.length>0)
                     {
-                        console.log('tdata lenght'+tdata_array.length);
+                        //console.log('tdata lenght'+tdata_array.length);
                         if(tdata_array.includes(useridtwitter))
                         {
                             classButton = 'tippin-button tippin-button-yes';
@@ -94,7 +94,7 @@ $(document).ready(function() {
     }
 
     //From time to time, reload list of Twitter users from Tippin. At least once every time a page is reload.
-    chrome.runtime.sendMessage({message: "reloadtdata"});
+    //chrome.runtime.sendMessage({message: "reloadtdata"}); //TO MUCH LOAD. Maybe after they click on a tippin button
 
     // Listen for changes with MutationObserver
     // Select the target node (tweet modal)
@@ -129,12 +129,14 @@ $(document).ready(function() {
         //document.getElementById('tweet-box-global').innerHTML = '<div>@Hey! Test</div>';
         var injectedCode = `
         function getConfirmation() {
-            var retVal = confirm("This user does not have a Tippin account. Ask him to join?");
+            var retVal = confirm("This user does not have a Tippin account. Ask them to join?");
             if( retVal == true ) {
                //User wants to tweet
+               console.log('Clicked ok');
                return true;
             } else {
                //User does not want to tweet
+               console.log('Clicked no');
                return false;
             }
         }
