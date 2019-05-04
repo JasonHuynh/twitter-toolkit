@@ -9,25 +9,25 @@ $(document).ready(function () {
         var bias = obj["bias"];
         var bias_str = "";
         if (bias == -2) {
-            bias_str = "leans left";
+            bias_str = " leans left";
         } else if (bias == -1) {
-            bias_str = "leans left-center";
+            bias_str = " leans left-center";
         } else if (bias == 0) {
-            bias_str = "is centrist";
+            bias_str = " is centrist";
         } else if (bias == 1) {
-            bias_str = "leans right-center";
+            bias_str = " leans right-center";
         } else if (bias == 2) {
-            bias_str = "leans right";
+            bias_str = " leans right";
         }
         //alert(obj.domain);
         var str = "";
         str += "This tweet references the domain " + obj["domain"];
-        str += ". The source hosted on " + obj["domain"] + bias_str;
+        str += ". " + obj["source"] + bias_str;
         str += " and has a credibility score of " + obj["credibility"];
-        str += " out of 5.\n";
+        str += " out of 5.\n\n";
 
         if (obj["manipulation"] == 1) {
-            str += "Warning: \n This tweet appears to show signs of manipulation.";
+            str += "Warning: This tweet appears to show signs of manipulation.";
         }
         return str;
     }
