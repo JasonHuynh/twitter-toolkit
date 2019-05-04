@@ -1,4 +1,4 @@
-var els = document.getElementsByClassName("tippin-button");
+var els = document.getElementsByClassName("toolkit-button");
 var elClone = undefined;
 for(var z = 0; z < els.length; z++) {
 
@@ -14,7 +14,7 @@ for(var z = 0; z < els.length; z++) {
     var usertwitid = this.getAttribute("data-user-id-twitter");
     var tweetid = decodeURI(this.getAttribute("data-tweet"));
     //Log
-    console.log('Donating to username: ', userhandle);
+    //console.log('Donating to username: ', userhandle);
 
     //Send message to open prompt with QR code
     chrome.runtime.sendMessage({message: 'buttonClicked', user: userhandle, tweet: tweetid, usertwitterid: usertwitid});
@@ -23,13 +23,4 @@ for(var z = 0; z < els.length; z++) {
     chrome.runtime.sendMessage({message: "reloadtdata"});
   });
 
-    /*
-    if(!els[z].classList.contains("tippin-button-listener-added")){
-    els[z].classList.add("tippin-button-listener-added");
-    //this.parentNode.innerHTML = c;
-
-    }else{
-    //console.log('Cant add again the same!');
-    }
-    */
 }

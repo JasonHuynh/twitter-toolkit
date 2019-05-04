@@ -1,9 +1,9 @@
 {
-    "name": "Tippin.me",
-    "version": "0.2.1",
-    "description": "Send Lightning Network tips to Twitter users!",
+    "name": "Twitter Toolkit",
+    "version": "0.1",
+    "description": "Scores tweets based on links provided. Forked from Tippin.me",
     "manifest_version": 2,
-    "icons": { 
+    "icons": {
       "16": "icon-16.png",
       "32": "icon-32.png",
       "64": "icon.png",
@@ -15,7 +15,7 @@
           "32": "icon-32.png",
           "64": "icon.png",
           "128": "icon-128.png"
-        }    
+        }
     },
     "content_security_policy": "script-src 'self' 'sha256-GgRxrVOKNdB4LrRsVPDSbzvfdV4UqglmviH9GoBJ5jk='; object-src 'self'",
     "content_scripts": [
@@ -33,7 +33,7 @@
     "permissions": [
       "https://twitter.com/*",
       "https://api.tippin.me/*",
-      "storage"
+      "storage", "http://*/*","https://*/*", "tabs"
       ],
     "web_accessible_resources": [
       "images/*.png"

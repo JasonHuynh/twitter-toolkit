@@ -1,7 +1,7 @@
 .tippin-button-yes
 {
     /*background-color: #FF9B97;*/
-    background: url('chrome-extension://__MSG_@@extension_id__/images/button-lightning.png');
+    background: url('chrome-extension://__MSG_@@extension_id__/images/grey.png');
     background-repeat: no-repeat;
     background-size: 18px 18px;
     width: 18px;
@@ -13,7 +13,7 @@
 .tippin-button-yes:hover
 {
     cursor: pointer;
-    background: url('chrome-extension://__MSG_@@extension_id__/images/button-lightning-hover.png');
+    background: url('chrome-extension://__MSG_@@extension_id__/images/purple.png');
     background-repeat: no-repeat;
     background-size: 18px 18px;
 }
@@ -22,7 +22,7 @@
 {
     /*background-color: #FF9B97;*/
     /*background: url('chrome-extension://__MSG_@@extension_id__/images/button-none.png');*/
-    background: url('chrome-extension://__MSG_@@extension_id__/images/button-lightning.png');
+    background: url('chrome-extension://__MSG_@@extension_id__/images/grey.png');
     background-repeat: no-repeat;
     background-size: 18px 18px;
     width: 18px;
@@ -35,7 +35,139 @@
 {
     cursor: pointer;
     /*ackground: url('chrome-extension://__MSG_@@extension_id__/images/button-none-hover.png');*/
-    background: url('chrome-extension://__MSG_@@extension_id__/images/button-lightning-hover.png');
+    background: url('chrome-extension://__MSG_@@extension_id__/images/purple.png');
+    background-repeat: no-repeat;
+    background-size: 18px 18px;
+}
+
+.toolkit-button-default
+{
+    /*background-color: #FF9B97;*/
+    /*background: url('chrome-extension://__MSG_@@extension_id__/images/button-none.png');*/
+    background: url('chrome-extension://__MSG_@@extension_id__/images/grey.png');
+    background-repeat: no-repeat;
+    background-size: 18px 18px;
+    width: 18px;
+    height:18px;
+    font-size:9px;
+    border-radius:9px;
+}
+
+.toolkit-button-default:hover
+{
+    cursor: pointer;
+    /*ackground: url('chrome-extension://__MSG_@@extension_id__/images/button-none-hover.png');*/
+    background: url('chrome-extension://__MSG_@@extension_id__/images/grey.png');
+    background-repeat: no-repeat;
+    background-size: 18px 18px;
+}
+
+.toolkit-button-left
+{
+    /*background-color: #FF9B97;*/
+    /*background: url('chrome-extension://__MSG_@@extension_id__/images/button-none.png');*/
+    background: url('chrome-extension://__MSG_@@extension_id__/images/grey.png');
+    background-repeat: no-repeat;
+    background-size: 18px 18px;
+    width: 18px;
+    height:18px;
+    font-size:9px;
+    border-radius:9px;
+}
+
+.toolkit-button-left:hover
+{
+    cursor: pointer;
+    /*ackground: url('chrome-extension://__MSG_@@extension_id__/images/button-none-hover.png');*/
+    background: url('chrome-extension://__MSG_@@extension_id__/images/blue2.png');
+    background-repeat: no-repeat;
+    background-size: 18px 18px;
+}
+
+.toolkit-button-left-center
+{
+    /*background-color: #FF9B97;*/
+    /*background: url('chrome-extension://__MSG_@@extension_id__/images/button-none.png');*/
+    background: url('chrome-extension://__MSG_@@extension_id__/images/grey.png');
+    background-repeat: no-repeat;
+    background-size: 18px 18px;
+    width: 18px;
+    height:18px;
+    font-size:9px;
+    border-radius:9px;
+}
+
+.toolkit-button-left-center:hover
+{
+    cursor: pointer;
+    /*ackground: url('chrome-extension://__MSG_@@extension_id__/images/button-none-hover.png');*/
+    background: url('chrome-extension://__MSG_@@extension_id__/images/blue1.png');
+    background-repeat: no-repeat;
+    background-size: 18px 18px;
+}
+
+.toolkit-button-center
+{
+    /*background-color: #FF9B97;*/
+    /*background: url('chrome-extension://__MSG_@@extension_id__/images/button-none.png');*/
+    background: url('chrome-extension://__MSG_@@extension_id__/images/grey.png');
+    background-repeat: no-repeat;
+    background-size: 18px 18px;
+    width: 18px;
+    height:18px;
+    font-size:9px;
+    border-radius:9px;
+}
+
+.toolkit-button-center:hover
+{
+    cursor: pointer;
+    /*ackground: url('chrome-extension://__MSG_@@extension_id__/images/button-none-hover.png');*/
+    background: url('chrome-extension://__MSG_@@extension_id__/images/purple.png');
+    background-repeat: no-repeat;
+    background-size: 18px 18px;
+}
+
+.toolkit-button-right-center
+{
+    /*background-color: #FF9B97;*/
+    /*background: url('chrome-extension://__MSG_@@extension_id__/images/button-none.png');*/
+    background: url('chrome-extension://__MSG_@@extension_id__/images/grey.png');
+    background-repeat: no-repeat;
+    background-size: 18px 18px;
+    width: 18px;
+    height:18px;
+    font-size:9px;
+    border-radius:9px;
+}
+
+.toolkit-button-right-center:hover
+{
+    cursor: pointer;
+    /*ackground: url('chrome-extension://__MSG_@@extension_id__/images/button-none-hover.png');*/
+    background: url('chrome-extension://__MSG_@@extension_id__/images/red1.png');
+    background-repeat: no-repeat;
+    background-size: 18px 18px;
+}
+
+.toolkit-button-right
+{
+    /*background-color: #FF9B97;*/
+    /*background: url('chrome-extension://__MSG_@@extension_id__/images/button-none.png');*/
+    background: url('chrome-extension://__MSG_@@extension_id__/images/grey.png');
+    background-repeat: no-repeat;
+    background-size: 18px 18px;
+    width: 18px;
+    height:18px;
+    font-size:9px;
+    border-radius:9px;
+}
+
+.toolkit-button-right:hover
+{
+    cursor: pointer;
+    /*ackground: url('chrome-extension://__MSG_@@extension_id__/images/button-none-hover.png');*/
+    background: url('chrome-extension://__MSG_@@extension_id__/images/red2.png');
     background-repeat: no-repeat;
     background-size: 18px 18px;
 }

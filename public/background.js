@@ -9,32 +9,35 @@ chrome.runtime.onMessage.addListener(
       if (request.message == 'listeners'){
         //add event handler for button click. This handler is injectedScript.js
         chrome.tabs.executeScript(null, {file: "injectedScript.js"});
-        
-        //sendResponse({message: "OK"});//optional
-      }else if(request.message == 'weblnstatusvar')
-      {
-        console.log('[background weblnenabled] '+localStorage.getItem('weblnEnabled'));
-        localStorage.setItem('weblnEnabled',request.value);
-        console.log('[background weblnenabled] '+localStorage.getItem('weblnEnabled'));
 
+        //sendResponse({message: "OK"});//optional
       }else if(request.message == 'reloadtdata')
       {
         //Reload tdata (Twitter users)
         console.log('Reloading tdata...');
-        loadDataTwitterUsers();
+        //loadDataTwitterUsers();
       }else if(request.message == 'buttonClicked')
       {
+        console.log('button clicked');//'[buttonClicked] Message received, for username and tweet: '+userhandle+' - '+tweetid+'-'+usertwitterid);
         //Get username
-        var userhandle = request.user;
+        /*var userhandle = request.user;
         var tweetid = request.tweet;
         var usertwitterid = request.usertwitterid;
         //Log
         console.log('[buttonClicked] Message received, for username and tweet: '+userhandle+' - '+tweetid+'-'+usertwitterid);
+        //alert("button clicked");
+        var userhandle = decodeURI(this.getAttribute("data-username"));
+        var usertwitid = this.getAttribute("data-user-id-twitter");
+        var tweetid = decodeURI(this.getAttribute("data-tweet"));
+        //Log
+        //console.log('Donating to username: ', userhandle);
 
-
+        //Send message to open prompt with QR code
+        chrome.runtime.sendMessage({message: 'buttonClicked', user: userhandle, tweet: tweetid, usertwitterid: usertwitid});
+        */
 
         //1. First, if tdata is loaded, check if this user has Tippin and save a query to the api. Also allows to show a reply message on non-joule users
-        if(tdata_loaded === true)
+        /*if(tdata_loaded === true)
         {
           if(tdata_array !== null && tdata_array.length>0)
           {
@@ -47,46 +50,18 @@ chrome.runtime.onMessage.addListener(
                   //User doesn't exist, don't continue , and show alert
                   console.log('User does not exist on Tippin.');
                   chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
-                    chrome.tabs.sendMessage(tabs[0].id, {message: 'asktojoin', user: userhandle, tweet: tweetid}, function(response) {});  
+                    chrome.tabs.sendMessage(tabs[0].id, {message: 'asktojoin', user: userhandle, tweet: tweetid}, function(response) {});
                   });
                   return;
               }
           }
-        }
+      }*/
 
-        //2. Now check which one of modal presentation show
-        //Check if WebLN is present
-        if( localStorage.getItem('weblnEnabled') == 'true')
-        {
-          //Webln Present.
-          console.log('[Sending message to content script, to open Webln]');
-
-          chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
-            chrome.tabs.sendMessage(tabs[0].id, {message: 'weblnpayinvoice', user: userhandle, tweet: tweetid}, function(response) {});  
-          });
-
-           //Send callback?
-          //sendResponse({message: "ok"});//optional
-
-        }else{
-          //Webln Not present. Open window.
-          var w = 420;
-          var h = 590;
-          var leftpx = 200;
-          var toppx = 100;
-          leftpx = Math.round((screen.width/2)-(w/2));
-          toppx = Math.round((screen.height/2)-(h/2)); 
-          console.log('Open window:'+screen.width+' '+screen.height+' '+leftpx+' '+toppx);
-          chrome.windows.create({url: `https://tippin.me/buttons/send-lite.php?u=${userhandle}&eh=yes&t=${tweetid}`, type: "popup", width: w, height: h, left: leftpx, top: toppx});
-          
-          //Send callback?
-          //sendResponse({message: "ok"});//optional
-        }
       }
-      
+
     });
 
-    
+
     //Execute content script every time you change url (no need to reload, that's why changeInfo is not undefined)
     chrome.tabs.onUpdated.addListener(function(tabId,changeInfo,tab){
       if(changeInfo.url !== undefined)
@@ -96,32 +71,18 @@ chrome.runtime.onMessage.addListener(
           {
             console.log('Doing a soft reload of tippin\'s content script...'+changeInfo.url);
             chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
-              chrome.tabs.sendMessage(tabs[0].id, {message: 'softreload'}, function(response) {});  
+              chrome.tabs.sendMessage(tabs[0].id, {message: 'softreload'}, function(response) {});
             });
           }
         }else{
           //Undefined. Don't do anything.
         }
-      
-      /*
-      //This needed tab permissions
-      if (tab.url.indexOf("https://twitter.com/") > -1 && changeInfo.url !== undefined){
-          console.log('Executing contentScript...');
-          //Execute content script (problem: duplicated injections)
-          //chrome.tabs.executeScript(tabId, {file: "contentScript.js"} );
-          //Send message to Soft-reload contentScript.
-          chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
-            chrome.tabs.sendMessage(tabs[0].id, {message: 'softreload'}, function(response) {});  
-          });
-      }else{
-          console.log('Page changed but not matched req.'+changeInfo.url);
-      }
-      */
+
     });
-  
+
 
 //Load User List
-var tdata_array = [];
+/*var tdata_array = [];
 var tdata_loaded = false;
 function loadDataTwitterUsers(){
   chrome.storage.local.get(['tdata','lastFetchTdata'], function(data) {
@@ -160,11 +121,11 @@ function loadDataTwitterUsers(){
 
     if(mustFetch === true)
     {
-      fetch('https://api.tippin.me/v1/tdata', { 
-        method: 'post', 
+      fetch('https://api.tippin.me/v1/tdata', {
+        method: 'post',
         headers: new Headers({
           'authorization': 'basic YjZiNjBjYWU0MDlkZTY3OWNjN2IxMDA3NjMzODdkZmE6MDI2ZTdhNWQ5ZDI1MTkzYzNkYWRmNzExOWIzYzliZGQK'
-        }), 
+        }),
         body: 't=0&u=0'
       })
       .then(res => res.json())
@@ -190,11 +151,11 @@ function loadDataTwitterUsers(){
           chrome.storage.local.set({tdata: json.data, lastFetchTdata : 0}, function() {
             console.log('Value of local storage set');
           });
-          
+
         }
-      
+
       });
     }
   });
 }
-loadDataTwitterUsers();
+loadDataTwitterUsers();*/
